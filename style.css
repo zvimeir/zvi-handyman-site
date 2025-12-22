@@ -377,3 +377,99 @@ body{
   .h2{ font-size: 1.9rem; }
   .table td{ padding: 9px; font-size: 0.92rem; }
 }
+
+
+/* ===== HOTFIX: Phone + WhatsApp buttons colors & layout ===== */
+/* Paste at the END of style.css */
+
+:root{
+  --btn-radius: 999px;
+  --btn-pad-y: 12px;
+  --btn-pad-x: 18px;
+
+  --call-bg: #0b3a6a;        /* navy */
+  --call-bg-hover: #083056;
+
+  --wa-bg: #25D366;          /* WhatsApp green */
+  --wa-bg-hover: #1fb85a;
+
+  --btn-text: #ffffff;
+}
+
+/* Make sure CTA containers behave like buttons row */
+.cta-buttons,
+.hero-buttons,
+.contact-buttons,
+.bottom-buttons,
+.footer-buttons{
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Generic button look (works even if HTML uses different classes) */
+.cta-buttons a,
+.hero-buttons a,
+.contact-buttons a,
+.bottom-buttons a,
+.footer-buttons a,
+a.button,
+a.btn,
+a.cta,
+a.cta-button{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--btn-radius);
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  font-weight: 700;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  transition: transform .12s ease, filter .12s ease, background-color .12s ease;
+  min-width: 160px;
+}
+
+/* PHONE links = navy */
+a[href^="tel:"]{
+  background: var(--call-bg) !important;
+  color: var(--btn-text) !important;
+}
+a[href^="tel:"]:hover{
+  background: var(--call-bg-hover) !important;
+  transform: translateY(-1px);
+}
+
+/* WHATSAPP links = WhatsApp green */
+a[href*="wa.me"],
+a[href*="api.whatsapp.com/send"],
+a[href*="whatsapp.com/send"],
+a[href*="whatsapp://send"]{
+  background: var(--wa-bg) !important;
+  color: var(--btn-text) !important;
+}
+a[href*="wa.me"]:hover,
+a[href*="api.whatsapp.com/send"]:hover,
+a[href*="whatsapp.com/send"]:hover,
+a[href*="whatsapp://send"]:hover{
+  background: var(--wa-bg-hover) !important;
+  transform: translateY(-1px);
+}
+
+/* If you have a "secondary" CTA (e.g., send WhatsApp) that you want NOT grey */
+.secondary,
+.btn-secondary,
+.secondary-btn{
+  /* prevent grey overrides */
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Keep focus visible (mobile accessibility) */
+a[href^="tel:"]:focus-visible,
+a[href*="wa.me"]:focus-visible,
+a[href*="api.whatsapp.com/send"]:focus-visible{
+  outline: 3px solid rgba(255,255,255,.8);
+  outline-offset: 3px;
+}
